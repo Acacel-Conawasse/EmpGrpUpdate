@@ -60,10 +60,13 @@ def automate_tasks(input_file, log_file):
         time.sleep(1)
 
         pyautogui.click(44, 70)
-        time.sleep(1)
+        time.sleep(1.5)
 
         # Log the update
         log_update(col0, log_file)
+
+        pyautogui.click(3414, 206)
+        time.sleep(1)
 
 if __name__ == "__main__":
     input_file_path = 'input.txt'
