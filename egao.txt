@@ -1,0 +1,32 @@
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+(async function searchAndSave() {
+  // Write OrgSet- in the search field
+  const searchInput = document.querySelector('input[placeholder="Search..."]');
+  searchInput.value = 'OrgSet-';
+  searchInput.dispatchEvent(new Event('input'));  // Trigger input event to ensure Angular detects the change
+  await wait(1000);  // Wait for 1 second
+
+  // Click the search button
+  document.querySelector('button.search-buttons__search').click();
+  await wait(1000);  // Wait for 1 second
+
+  // Wait for the search results to appear and select the desired item
+  const items = document.querySelectorAll('span[ng-bind-html="writeLabel( item, \'itemLabel\' )"]');
+  for (let item of items) {
+    if (item.textContent.includes('OrgSet-')) {
+      item.click();
+      break;
+    }
+  }
+  await wait(1000);  // Wait for 1 second
+
+  // Click on the "Save" button
+  const saveButtonSpan = Array.from(document.querySelectorAll('span[ng-bind-template="Save"]'))
+                              .find(span => span.innerText.includes('Save'));
+  if (saveButtonSpan) {
+    saveButtonSpan.click();
+  }
+})();
