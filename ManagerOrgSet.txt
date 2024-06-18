@@ -1,0 +1,19 @@
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function automateTasks() {
+  // Change the value of the input element
+  let inputElement = document.querySelector('input[aria-label="All Organizational Groups"]');
+  inputElement.removeAttribute('readonly'); // Remove readonly attribute if needed
+  inputElement.value = 'Manager Organizational Groups';
+  inputElement.dispatchEvent(new Event('input')); // Trigger input event
+  await sleep(1000);
+
+  // Click the Save button
+  let saveButton = document.querySelector('button[ng-click="organizationalSetsEditCtrl.saveOrgSet()"]');
+  saveButton.click();
+  await sleep(1000);
+}
+
+automateTasks();

@@ -1,0 +1,28 @@
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function automateSearch() {
+  // Search for "Empty"
+  let searchInput = document.querySelector('input[placeholder="Search..."]');
+  searchInput.value = 'Empty';
+  searchInput.dispatchEvent(new Event('input')); // Trigger input event
+  await sleep(1000);
+
+  // Click on the search button
+  let searchButton = document.querySelector('button.search-buttons__search');
+  searchButton.click();
+  await sleep(1000);
+
+  // Select the specific item
+  let item = document.evaluate("//label[contains(.,'Empty')]//input", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  item.click();
+  await sleep(1000);
+  
+  // Click on the Save button
+  let saveButton = document.evaluate("//span[@ng-bind-template='Save']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  saveButton.click();
+  await sleep(1000);
+}
+
+automateSearch();
